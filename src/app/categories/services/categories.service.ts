@@ -41,6 +41,18 @@ export class CategoriesService {
     return this.http.get<Category>(this.baseUrl+id);
   }
 
+  addCategory(name: string){
+    const options = {
+      headers : new HttpHeaders({"content-type":"application/json"})
+    }
+    this.http.post<Category>(this.baseUrl, JSON.stringify({
+      Name: name
+    }), options).subscribe(category => {
+      this.categories.push(category)
+      this.categoriesUpdated.next([...this.categories])
+    })
+  }
+
 
   deleteCategory(id: number) { 
     this.http.delete(this.baseUrl+id).subscribe( () => this.getCategories())
