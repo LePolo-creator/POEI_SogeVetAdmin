@@ -2,10 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UsersRoutingModule } from './users-routing.module';
+import { ListUsersComponent } from './list-users/list-users.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ListUsersComponent
+  ],
   imports: [
     CommonModule,
     UsersRoutingModule
