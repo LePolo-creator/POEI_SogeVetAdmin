@@ -41,6 +41,10 @@ export class CategoriesService {
     return this.http.get<Category>(this.baseUrl+id);
   }
 
+  getLocalCategoryById(id: number) {
+    return this.categories.find(c => c.id == id);
+  }
+
   addCategory(name: string){
     const options = {
       headers : new HttpHeaders({"content-type":"application/json"})

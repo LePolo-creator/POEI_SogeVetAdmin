@@ -1,0 +1,41 @@
+<div class="container"> 
+
+    <button type="button" class="btn btn-success" [routerLink]="['/categories', 'add' ]"> Ajouter un nouvel utilisateur </button>
+
+    <form >
+        <div>
+            <label for="search"> Mot clé</label>
+            <input type="text" class="form-control" id="search" #search/> 
+        </div>
+        <div>
+            <button type="button"   class="btn btn-primary" (click)="filterUser(search.value)">Rechercher</button>
+        </div>
+    </form>
+    
+    
+    
+    <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th >#Id</th>
+            <th >Prénom</th>
+            <th >Nom</th>
+            <th >Email</th>
+            <th >Adresse</th>
+            <th >Modifier</th>
+            <th >Supprimer</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let u of filteredUsers?filteredUsers:usersToDisplay">
+            <th >{{ u.id }}</th>
+            <td>{{u.firstName}}</td>
+            <td>{{u.lastName}}</td>
+            <td>{{u.email}}</td>
+            <td>{{u.address}}</td>
+            <td><button class="btn btn-success" [routerLink]="['/users', 'edit', u.id]">Modifier</button> </td>
+            <td><button class="btn btn-danger" (click)="deleteUser(u.id)" >Supprimer</button> </td>
+        </tr>
+    </tbody>
+    </table>
+</div>
