@@ -1,1 +1,35 @@
-<p>list-categories works!</p>
+<div class="container"> 
+
+    <form >
+        <div>
+            <label for="search"> Mot clé</label>
+            <input type="text" class="form-control" id="search" #search/> 
+        </div>
+        <div>
+            <button type="button"   class="btn btn-primary" (click)="filterCategory(search.value)">Rechercher </button>
+        </div>
+    </form>
+    
+    
+    
+    <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th >#Id</th>
+            <th >Name</th>
+            <th >Nb de produits</th>
+            <th >Modifier</th>
+            <th >Supprimer</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let c of filteredCategories?filteredCategories:categoriesToDisplay">
+            <th >{{ c.id }}</th>
+            <td>{{c.name}}</td>
+            <td>0</td>
+            <td><button class="btn btn-success" [routerLink]="['/categories', 'edit', c.id]">Modifier</button> </td>
+            <td><button class="btn btn-danger" (click)="deleteCategory(c.id)" >Supprimer</button> </td>
+        </tr>
+    </tbody>
+    </table>
+</div>

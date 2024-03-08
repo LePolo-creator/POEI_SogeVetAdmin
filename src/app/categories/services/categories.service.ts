@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Subject} from 'rxjs'
-import { HttpClient} from '@angular/common/http'
+import {Observable, Subject} from 'rxjs'
+import { HttpClient, HttpHeaders} from '@angular/common/http'
 import { Category } from '../model/category';
+import { ICategoryToDisplay } from '../model/i-category-to-display';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,22 @@ import { Category } from '../model/category';
 export class CategoriesService {
 
   private categories : Category[] = [];
-  categoriesUpdated = new Subject<Category[]>()
+  categoriesUpdated = new Subject<Category[]>()     // Canal pour récupérer les modifications
 
   baseUrl="https://localhost:7265/api/categories/";
 
   constructor( private http: HttpClient) { }
+
+
+  transformCategories( categories : Category[]) : ICategoryToDisplay[] {
+    return categories.map( c => {
+      return {
+        id : c.id,
+        name : c.name
+        // Rajouter les produits dans un deuxième temps ?
+      } as ICategoryToDisplay;
+    })
+  }
 
   getCategories(){
     this.http.get<Category[]>(this.baseUrl).subscribe(
@@ -25,7 +37,25 @@ export class CategoriesService {
     )
   }
 
-  getCategoryById(id : number){
-    return this.categories.find(c => c.id == id);
+  getCategoryById(id : number) : Observable<Category>{
+    return this.http.get<Category>(this.baseUrl+id);
+  }
+
+
+  deleteCategory(id: number) { 
+    this.http.delete(this.baseUrl+id).subscribe( () => this.getCategories())
+  }
+
+
+  editCategory(id: number, name: string){
+    const options = {
+      headers : new HttpHeaders({"content-type":"application/json"})
+    }
+    this.http.put<Category>(this.baseUrl+id, JSON.stringify({
+      Id : id,
+      Name: name
+    }), options).subscribe(category => {
+      this.categories = this.categories.map(c => c.id === category.id ? category : c)
+    })
   }
 }
