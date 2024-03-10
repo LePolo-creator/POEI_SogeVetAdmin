@@ -9,7 +9,7 @@ import {Observable, Subject} from 'rxjs'
 })
 export class UsersService {
   baseUrl="https://localhost:7265/api/users/";
-  
+
   options = {
     headers : new HttpHeaders({"content-type":"application/json"})
   }
@@ -37,7 +37,7 @@ export class UsersService {
   // on ne peut pas créer un admin via le addUser => pas de isAdmin car par défaut false.
   addUser(firstName: string, lastName: string, email: string, password: string, address: string){
     this.http.post<User>(
-      this.baseUrl, 
+      this.baseUrl,
       JSON.stringify({firstName: firstName, lastName: lastName, email: email, password: password, address: address}),
       this.options
       ).subscribe(newUser => {
@@ -47,6 +47,7 @@ export class UsersService {
   }
 
 
+
   deleteUser(id:number){
     this.http.delete(this.baseUrl+id).subscribe(() => {
       this.users = this.users.filter(u => u.id != id),
@@ -54,22 +55,23 @@ export class UsersService {
     }
     )
   }
-  
+
   editUser(id: number,firstName: string, lastName: string, email: string, password: string, address: string ) {
     this.http.put<User>(
       this.baseUrl+id,
       JSON.stringify({firstName: firstName, lastName: lastName, email: email, password: password, address: address}),
       this.options
-    ).subscribe(user => {
-      this.users = this.users.map(u => u.id == user.id ? user : u)
-    })
-  }
- 
-  // OPTIONNEL : désactiver un user, changer API: rajout colonne isActive
-  /*
-  deactivateUser(id: number){
+      ).subscribe(user => {
+        this.users = this.users.map(u => u.id == user.id ? user : u)
+      })
+    }
 
-  }
+    // OPTIONNEL : désactiver un user, changer API: rajout colonne isActive default true
+    /*
+    deactivateUser(id: number) {
+      const userToDeactivate = this.getLocalUserById(id);
+      userToDeactivate?.isActive = false
+    }
   */
 
 }

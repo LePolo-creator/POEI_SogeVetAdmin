@@ -9,22 +9,32 @@ import { Subject, Subscription } from 'rxjs';
   styleUrls: ['./list-users.component.css']
 })
 export class ListUsersComponent implements OnInit{
-  users : User[] = []
+  users : User[] = []                  // users
   userSubscription? : Subscription;
   usersToDisplay : User[] = []
   usersUpdated : User[] = []
   filteredUsers : User[] = []
-  
+
   constructor(private usersService : UsersService){}
 
   filterUser(keyword: string){
-    this.filteredUsers = this.usersToDisplay.filter(u => 
+    this.filteredUsers = this.usersToDisplay.filter(u =>
       u.firstName.toLowerCase().includes(keyword.toLowerCase()) ||
       u.lastName.toLowerCase().includes(keyword.toLowerCase()) ||
       u.email.toLowerCase().includes(keyword.toLowerCase())
       )
-
   }
+
+  deleteUser(id : number){
+    if (confirm("Etes-vous sûrs de vouloir supprimer cet utilisateur ?"))
+    {
+      this.usersService.deleteUser(id);
+    }
+  }
+
+  // deactivateUser(id: number){
+  //   this.usersService.deactivateUser(id);
+  // }
 
   ngOnInit(): void {
     this.usersService.getUsers();

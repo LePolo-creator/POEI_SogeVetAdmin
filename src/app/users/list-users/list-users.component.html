@@ -1,19 +1,19 @@
-<div class="container"> 
-
-    <button type="button" class="btn btn-success" [routerLink]="['/categories', 'add' ]"> Ajouter un nouvel utilisateur </button>
+<div class="container">
+    <!-- Pas d'intérêt à avoir un add pour users -->
+    <!-- <button type="button" class="btn btn-success" [routerLink]="['/users', 'add' ]"> Ajouter un nouvel utilisateur </button> -->
 
     <form >
         <div>
             <label for="search"> Mot clé</label>
-            <input type="text" class="form-control" id="search" #search/> 
+            <input type="text" class="form-control" id="search" #search/>
         </div>
         <div>
             <button type="button"   class="btn btn-primary" (click)="filterUser(search.value)">Rechercher</button>
         </div>
     </form>
-    
-    
-    
+
+
+
     <table class="table table-bordered table-hover">
     <thead class="table-dark">
         <tr>
@@ -35,6 +35,7 @@
             <td>{{u.address}}</td>
             <td><button class="btn btn-success" [routerLink]="['/users', 'edit', u.id]">Modifier</button> </td>
             <td><button class="btn btn-danger" (click)="deleteUser(u.id)" >Supprimer</button> </td>
+            <!-- <td><button class="btn btn-danger" (click)="deactivateUser(u.id)" >Désactiver</button> </td> -->
         </tr>
     </tbody>
     </table>
