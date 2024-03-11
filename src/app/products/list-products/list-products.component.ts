@@ -31,7 +31,12 @@ export class ListProductsComponent implements OnInit{
   }
   
   
-  
+  deleteProduct(id : number){
+    if (confirm("Etes-vous sûrs de vouloir supprimer ce produit ?"))
+    {
+      this.productService.deleteProduct(id);
+    }
+  }
   
   
   
