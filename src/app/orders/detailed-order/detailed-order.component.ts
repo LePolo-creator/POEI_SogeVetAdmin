@@ -12,18 +12,20 @@ import { OrderItems } from '../model/order-items';
 export class DetailedOrderComponent {
   order? : Order
   orderItems? : OrderItems[]
+  totalPrice?: number
   constructor(
     private activatedRoute : ActivatedRoute,
     private orderService : OrdersService,
   ){}
 
   ngOnInit(): void {
+    this.orderService.getOrders();
     this.activatedRoute.params.subscribe( params => {
       const id = params["id"];
       this.orderService.getOrderById(id).subscribe(o => {
         this.order = o;
-        this.orderItems = o.orderItems
-        
+        this.orderItems = o.orderItems;
+        this.totalPrice = this.orderService.getTotalPrice(o.id)
       }
         )
     })

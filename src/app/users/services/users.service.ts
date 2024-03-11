@@ -60,10 +60,11 @@ export class UsersService {
 
   getUserFullName(id : number){
     let fullName = "";
-    return this.getUserById(id).subscribe(user => {
-       console.log(user)
-       return user.firstName
+     this.getUserById(id).subscribe(user => {
+       
+       fullName= user.firstName
      } )
+     return fullName
   }
 
  

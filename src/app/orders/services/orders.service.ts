@@ -10,7 +10,7 @@ import { UsersService } from 'src/app/users/services/users.service';
 })
 export class OrdersService  {
 
-  private orders : Order[] = []
+  orders : Order[] = []
   ordersUpdated = new Subject<Order[]>()     
 
   baseUrl="https://localhost:7265/api/orders/";
@@ -18,12 +18,13 @@ export class OrdersService  {
   constructor(private http: HttpClient, private userService : UsersService) { }
 
   convertToDisplay(order : Order) : IOrderToDisplay {
-    
+    const userName = this.userService.getUserFullName(order.userId)
+    console.log(userName)   // NE MARCHE PAS
     return {
       id: order.id,
       address : order.address,
       status : order.status,
-      user : "A FAIRE" ,
+      user : userName ,
       orderItems : order.orderItems,
       totalPrice : this.getTotalPrice(order.id),
       totalQuantity: this.getTotalQuantity(order.id)
