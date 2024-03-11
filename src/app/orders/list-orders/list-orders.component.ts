@@ -14,14 +14,22 @@ export class ListOrdersComponent implements OnInit{
 
   constructor( private orderService : OrdersService, private userService : UsersService){}
   orders : Order[] = []
-  filteredOrders? : Order[]
+  filteredOrders? : IOrderToDisplay[]
   ordersToDisplay : IOrderToDisplay[] = []
   orderSubscription? : Subscription
 
-  filterOrders(keyword : string){
-    //
+  filterOrders(status?:string, keyword? : string,  min?: number, max? : number ){
+    this.filteredOrders = this.ordersToDisplay
+    if (status) {
+      this.filteredOrders = this.filteredOrders.filter(o => o.status == status)
+    }
+    if (max) {
+       this.filteredOrders = this.filteredOrders.filter(o => o.totalPrice <= +max);
+    }
+    if (min) {
+       this.filteredOrders = this.filteredOrders.filter(o => o.totalPrice >= +min);
+    }
   }
-
 
 
 

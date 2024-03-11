@@ -1,16 +1,36 @@
 <div class="container">
-
-      <!-- <form>
-        <div class="d-flex justify-content-center gap-3">
-          <div>
-            <input type="text" class="form-control" (keyup)="filterCategory(search.value)" id="search" #search placeholder="Mot clé"/>
-          </div>
-          <div>
-            <button type="button"  class="btn btn-primary" (click)="filterCategory(search.value)">Rechercher </button>
-          </div>
+  <form>
+    <h4>Filtres</h4>
+    <div class="d-flex justify-content-center gap-3 mb-3 align-items-end p-3">
+        <div>
+          <label for=""> Statut de la commande</label>
+          <select type="text" class="form-control"  #status  >
+            <option value=""></option>
+            <option value="En attente de traitement">En attente de traitement</option>
+            <option value="En attente de Livraison">En attente de Livraison</option>
+            <option value="En cours de livraison">En cours de livraison</option>
+            <option value="Livrée">Livrée</option>
+            <option value="Annulée">Annulée</option>
+          </select>
         </div>
-      </form>
-   -->
+        <div>
+          <label for="keyword">Mot clé</label>
+          <input type="text" class="form-control" id="keyword" name="keyword"   #keyword placeholder="Mot clé"/>
+        </div>
+        <div>
+            <label for="" > Fourchette de prix</label>
+            <div class="d-flex gap-1">
+              <input type="number" class="form-control"  #min placeholder="Min"/>
+              <input type="number" class="form-control" #max placeholder="Max"/>
+            </div>
+        </div>
+        <div>
+            <button type="button"  class="btn btn-primary" (click)="filterOrders(status.value,keyword.value,+min.value, +max.value)">Rechercher </button>
+        </div>
+    </div>
+
+  </form>
+  
 
   
       <table class="table mt-3 table-hover">
@@ -26,7 +46,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let o of ordersToDisplay">
+          <tr *ngFor="let o of filteredOrders? filteredOrders : ordersToDisplay">
             <td class="text-center">{{ o.id }}</td>
             <td>{{o.status}}</td>
             <td>{{o.totalQuantity}}</td>
