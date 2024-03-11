@@ -21,8 +21,8 @@ export class CategoriesService {
     return categories.map( c => {
       return {
         id : c.id,
-        name : c.name
-        // Rajouter les produits dans un deuxième temps ?
+        name : c.name,
+        nbOfProduct : c.products.length
       } as ICategoryToDisplay;
     })
   }
@@ -31,7 +31,7 @@ export class CategoriesService {
     this.http.get<Category[]>(this.baseUrl).subscribe(
       categories => {
         this.categories = categories;
-        console.log(this.categories);
+        // console.log(this.categories);
         this.categoriesUpdated.next([...this.categories]);
       }
     )

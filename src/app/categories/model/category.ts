@@ -1,4 +1,12 @@
+import { Product } from "src/app/products/model/product";
+
 export class Category {
+  public get products(): Array<Product> {
+    return this._products;
+  }
+  public set products(value: Array<Product>) {
+    this._products = value;
+  }
   public get name(): string {
     return this._name;
   }
@@ -13,7 +21,7 @@ export class Category {
   }
   constructor(
     private _id: number,
-    private _name: string
-    // has many products
+    private _name: string,
+    private _products: Array<Product>
   ){}
 }
