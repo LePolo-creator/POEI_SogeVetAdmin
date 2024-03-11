@@ -28,7 +28,7 @@
         <tr *ngFor="let c of filteredCategories?filteredCategories:categoriesToDisplay">
           <td class="text-center">{{ c.id }}</td>
           <td>{{c.name}}</td>
-          <td>0</td>
+          <td>{{c.nbOfProduct}}</td>
           <td class="td-actions text-right d-flex gap-3">
             <button type="button" rel="tooltip" [routerLink]="['/categories', 'edit', c.id]" class="btn btn-success">
                 Modifier
