@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h3>Modifier l'utilisateur #{{ user!.id }}</h3>
+  <h3>Modifier l'utilisateur #{{ user? user.id : "" }}</h3>
 
   <form (ngSubmit)="editUser(f)" #f="ngForm">
     <div class="form-group row my-3">

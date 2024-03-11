@@ -13,7 +13,7 @@ export class ListUsersComponent implements OnInit{
   userSubscription? : Subscription;
   usersToDisplay : User[] = []
   usersUpdated : User[] = []
-  filteredUsers : User[] = []
+  filteredUsers? : User[];
 
   constructor(private usersService : UsersService){}
 
@@ -39,8 +39,11 @@ export class ListUsersComponent implements OnInit{
   ngOnInit(): void {
     this.usersService.getUsers();
     this.userSubscription  = this.usersService.usersUpdated.subscribe( users =>  {
-        this.users = users;
+        // only non admin users (clients)
+        this.users = users.filter(u => !u.isAdmin);
         this.usersToDisplay = this.users;
       })
+      console.log(this.usersToDisplay)
+      console.log(this.users)
   }
 }

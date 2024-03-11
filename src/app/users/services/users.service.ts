@@ -21,6 +21,7 @@ export class UsersService {
   getUsers(){
     this.http.get<User[]>(this.baseUrl).subscribe(users =>{
       this.users = users;
+      console.log(this.users)
       this.usersUpdated.next([...this.users])
     })
   }
