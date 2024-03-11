@@ -30,12 +30,21 @@ export class ProductsService {
     )
   }
 
-  getProductsById(id : number) : Observable<Product>{
+  getProductById(id : number) : Observable<Product>{
     return this.http.get<Product>(this.baseUrl+id);
   }
 
-  addProducts(name: string,description : string,size : number, unitPrice : number,color : string, quantity : number,categoryName : string, images : string[]){
-    
+  addProduct(name: string,description : string,size : number, unitPrice : number,color : string, quantity : number,categoryName : string, images : string[]){
+    console.log(JSON.stringify({
+      Name: name,
+      Description : description,
+      Size : size,
+      UnitPrice : unitPrice,
+      Color : color,
+      Quantity : quantity,
+      CategoryName : categoryName,
+      Images : images
+    }))
     this.http.post<Product>(this.baseUrl, JSON.stringify({
       Name: name,
       Description : description,
@@ -51,10 +60,11 @@ export class ProductsService {
     })
   }
 
-  deleteProducts(id: number) { 
+  deleteProduct(id: number) { 
     this.http.delete(this.baseUrl+id).subscribe(()=>{
+      this.products = this.products.filter(p=>p.id != id);
 
-      this.products.filter(p=>p.id != id);
+      
       this.productsUpdated.next([...this.products])
 
     })

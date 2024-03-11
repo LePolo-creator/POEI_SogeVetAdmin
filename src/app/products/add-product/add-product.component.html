@@ -1,1 +1,43 @@
-<p>add-product works!</p>
+
+<div class = "container">
+    <form (ngSubmit)="addProduct(f)" #f="ngForm">
+    <div class="form-group">
+        <label for="name">Nom du produit</label>
+        <input type="text" class="form-control" id="name" name="name" ngModel required #name="ngModel"/>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" class="form-control" id="description" name="description" ngModel required #description="ngModel"/>
+    </div>
+    <div class="form-group">
+        <label for="size">Taille</label>
+        <input type="number" class="form-control" id="size" name="size" ngModel required #size="ngModel"/>
+    </div>
+    <div class="form-group">
+        <label for="unitPrice">Prix Unitaire</label>
+        <input type="number" class="form-control" id="unitPrice" name="unitPrice" ngModel required #unitPrice="ngModel"/>
+    </div>
+    <div class="form-group">
+        <label for="color">Couleur</label>
+        <input type="text" class="form-control" id="color" name="color" ngModel required #color="ngModel"/>
+    </div>
+    <div class="form-group">
+        <label for="quantity">Quantité</label>
+        <input type="number" class="form-control" id="quantity" name="quantity" ngModel required #quantity="ngModel"/>
+    </div>
+    <div class="form-group">
+        <!-- Ajouter liste deroulante des categories -->
+        <label for="categoryName">Nom de la categorie</label>
+        <!-- <input type="text" class="form-control" id="categoryName" name="categoryName" ngModel required #categoryName="ngModel" [ngModel]="product==undefined?'':product.categoryName"  /> -->
+        <select name="categoryName" id="categoryName" ngModel required #categoryName = "ngModel" class="form-control">
+            <option value="">Veuillez selectionner une catégorie</option>
+            <option *ngFor="let c of categories" [value]="c.name">{{c.name}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="images">Images</label>
+        <input type="text" class="form-control" id="images" name="images" multiple ngModel required #name="ngModel"/>
+    </div>
+    <button type="submit"   class="btn btn-primary" [disabled]="f.invalid">Ajouter</button>
+</form>
+</div>
