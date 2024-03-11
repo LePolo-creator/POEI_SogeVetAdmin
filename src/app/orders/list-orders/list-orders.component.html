@@ -21,7 +21,8 @@
             <th>Nombre de produits</th>
             <th>Client</th>            
             <th>Total (€)</th>            
-            <th class="text-right">Actions</th>
+            <th class="text-right">Détails</th>
+            <th class="text-right">Modifier statut</th>
           </tr>
         </thead>
         <tbody>
@@ -31,13 +32,15 @@
             <td>{{o.totalQuantity}}</td>
             <td>{{o.user}}</td>
             <td>{{o.totalPrice}}</td>
-            <td class="td-actions text-right d-flex gap-3">
-              <button type="button" rel="tooltip" [routerLink]="['/orders', o.id  ]" class="btn btn-success">
+            <td>
+              <button type="button" [routerLink]="['/orders', o.id  ]" class="btn btn-success">
                   Voir détails
-                </button>
-                <!-- <button type="button" rel="tooltip" (click)="deleteCategory(2)"  class="btn btn-danger"> -->
-                  <!-- Supprimer -->
-                <!-- </button> -->
+              </button>
+            </td>
+            <td>
+              <button type="button" [routerLink]="['/orders', 'edit', o.id  ]" class="btn btn-success">
+                  Modifier
+              </button>
             </td>
           </tr>
         </tbody>

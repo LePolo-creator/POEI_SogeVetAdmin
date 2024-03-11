@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Order } from '../model/order';
 import { Subject } from 'rxjs';
@@ -62,5 +62,19 @@ export class OrdersService  {
 
   getOrderById(id: number){
     return this.http.get<Order>(this.baseUrl+id)
+  }
+
+  editOrder(id: number, status: string, address: string){
+    const options = {
+      headers : new HttpHeaders({"content-type":"application/json"})
+    }
+    console.log(status)
+    this.http.put<Order>(this.baseUrl+id, JSON.stringify({
+      Id : id,
+      status: status,
+      address : address
+    }), options).subscribe(order => {
+      this.orders = this.orders.map(o => o.id === order.id ? order : o)
+    })
   }
 }
