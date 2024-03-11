@@ -5,7 +5,7 @@
     <form>
       <div class=" d-flex justify-content-center gap-3">
         <div >
-          <input type="text" class="form-control" id="search" #search placeholder="Mot clé"/>
+          <input type="text" class="form-control" id="search" (keyup)="filterUser(search.value)" #search placeholder="Mot clé"/>
         </div>
         <div >
           <button type="button"   class="btn btn-primary" (click)="filterUser(search.value)">Rechercher</button>

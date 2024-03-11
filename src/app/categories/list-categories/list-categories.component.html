@@ -4,7 +4,7 @@
     <form>
       <div class="d-flex justify-content-center gap-3">
         <div>
-          <input type="text" class="form-control" id="search" #search placeholder="Mot clé"/>
+          <input type="text" class="form-control" (keyup)="filterCategory(search.value)" id="search" #search placeholder="Mot clé"/>
         </div>
         <div>
           <button type="button"  class="btn btn-primary" (click)="filterCategory(search.value)">Rechercher </button>
