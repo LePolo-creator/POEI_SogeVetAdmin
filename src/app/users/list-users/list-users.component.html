@@ -1,8 +1,7 @@
-    <!-- Pas d'intérêt à avoir un add pour users -->
-    <!-- <button type="button" class="btn btn-success" [routerLink]="['/users', 'add' ]"> Ajouter un nouvel utilisateur </button> -->
+<div class="container">
 
-
-    <form>
+  
+  <form>
       <div class=" d-flex justify-content-center gap-3">
         <div >
           <input type="text" class="form-control" id="search" (keyup)="filterUser(search.value)" #search placeholder="Mot clé"/>
@@ -12,33 +11,7 @@
         </div>
       </div>
     </form>
- <!--
-     <table class="table table-bordered table-hover">
-    <thead class="table-dark">
-        <tr>
-            <th >#Id</th>
-            <th >Prénom</th>
-            <th >Nom</th>
-            <th >Email</th>
-            <th >Adresse</th>
-            <th >Modifier</th>
-            <th >Supprimer</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let u of filteredUsers?filteredUsers:usersToDisplay">
-            <th >{{ u.id }}</th>
-            <td>{{u.firstName}}</td>
-            <td>{{u.lastName}}</td>
-            <td>{{u.email}}</td>
-            <td>{{u.address}}</td>
-            <td><button class="btn btn-success" [routerLink]="['/users', 'edit', u.id]">Modifier</button> </td>
-            <td><button class="btn btn-danger" (click)="deleteUser(u.id)" >Supprimer</button> </td>
-        </tr>
-    </tbody>
-    </table> -->
-
-
+    
 
     <table class="table mt-3">
       <thead>
@@ -67,9 +40,9 @@
           </td>
           <td class="td-actions text-right d-flex gap-3">
             <button type="button" rel="tooltip" [routerLink]="['/users', 'edit', u.id]" class="btn btn-success">
-                Modifier
-              </button>
-              
+              Modifier
+            </button>
+            
               <div *ngIf="u.isActive; else elseBlock">
                 <button type="button" rel="tooltip" (click)="deactivateUser(u.id)" class="btn btn-danger">
                   Désactiver
@@ -79,13 +52,15 @@
                 <button type="button" rel="tooltip" (click)="reactivateUser(u.id)" class="btn btn-success">
                   Réactiver
                 </button>
-
+                
               </ng-template>
               
               <button type="button" rel="tooltip" (click)="deleteUser(u.id)" class="btn btn-danger">
                 Supprimer
               </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+</div>
