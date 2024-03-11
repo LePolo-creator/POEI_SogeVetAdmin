@@ -48,6 +48,7 @@
           <th >Nom</th>
           <th >Email</th>
           <th >Adresse</th>
+          <th > #Commandes </th>
           <th class="text-right">Actions</th>
         </tr>
       </thead>
@@ -58,10 +59,29 @@
           <td>{{u.lastName}}</td>
           <td>{{u.email}}</td>
           <td>{{u.address}}</td>
+          <td>{{u.orders.length}}
+
+            <button type="button" rel="tooltip"  class="btn btn-info">
+              Voir
+            </button>
+          </td>
           <td class="td-actions text-right d-flex gap-3">
             <button type="button" rel="tooltip" [routerLink]="['/users', 'edit', u.id]" class="btn btn-success">
                 Modifier
               </button>
+              
+              <div *ngIf="u.isActive; else elseBlock">
+                <button type="button" rel="tooltip" (click)="deactivateUser(u.id)" class="btn btn-danger">
+                  Désactiver
+                </button>
+              </div>
+              <ng-template #elseBlock> 
+                <button type="button" rel="tooltip" (click)="reactivateUser(u.id)" class="btn btn-success">
+                  Réactiver
+                </button>
+
+              </ng-template>
+              
               <button type="button" rel="tooltip" (click)="deleteUser(u.id)" class="btn btn-danger">
                 Supprimer
               </button>

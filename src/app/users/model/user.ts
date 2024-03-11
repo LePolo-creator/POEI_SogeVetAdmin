@@ -1,10 +1,18 @@
+import { Order } from "src/app/orders/model/order";
+
 export class User {
-    // public get isActive(): boolean {
-    //   return this._isActive;
-    // }
-    // public set isActive(value: boolean) {
-    //   this._isActive = value;
-    // }
+    public get orders(): Array<Order> {
+        return this._orders;
+    }
+    public set orders(value: Array<Order>) {
+        this._orders = value;
+    }
+    public get isActive(): boolean {
+      return this._isActive;
+    }
+    public set isActive(value: boolean) {
+      this._isActive = value;
+    }
     public get firstName(): string {
         return this._firstName;
     }
@@ -57,8 +65,9 @@ export class User {
         private _email: string,
         private _password: string,
         private _address: string,
-        private _isAdmin: boolean,
-        // private _isActive: boolean
+        private _isAdmin: boolean = false,
+        private _isActive: boolean = true,
+        private _orders: Array<Order>
 
     ){}
 }

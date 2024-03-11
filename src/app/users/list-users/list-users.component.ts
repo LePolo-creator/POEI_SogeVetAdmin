@@ -32,9 +32,15 @@ export class ListUsersComponent implements OnInit{
     }
   }
 
-  // deactivateUser(id: number){
-  //   this.usersService.deactivateUser(id);
-  // }
+  deactivateUser(id: number){
+    if (confirm("Etes-vous sûrs de vouloir désactiver ce compte ?")) {
+
+      this.usersService.deactivateUser(id);
+    }
+  }
+  reactivateUser(id: number){
+      this.usersService.reactivateUser(id);
+  }
 
   ngOnInit(): void {
     this.usersService.getUsers();
@@ -43,7 +49,5 @@ export class ListUsersComponent implements OnInit{
         this.users = users.filter(u => !u.isAdmin);
         this.usersToDisplay = this.users;
       })
-      console.log(this.usersToDisplay)
-      console.log(this.users)
   }
 }

@@ -68,11 +68,15 @@ export class UsersService {
     }
 
     // OPTIONNEL : désactiver un user, changer API: rajout colonne isActive default true
-    /*
+
     deactivateUser(id: number) {
       const userToDeactivate = this.getLocalUserById(id);
-      userToDeactivate?.isActive = false
+      userToDeactivate!.isActive = false
     }
-  */
+    reactivateUser(id: number) {
+      const userToReactivate = this.getLocalUserById(id);
+      userToReactivate!.isActive = true
+    }
+  
 
 }
