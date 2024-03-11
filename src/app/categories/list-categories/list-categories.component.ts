@@ -20,12 +20,16 @@ export class ListCategoriesComponent implements OnInit {
   constructor( private categoryService : CategoriesService ) {}
 
   filterCategory(keyword : string){
-    console.log(keyword);
+    // console.log(keyword);
     this.filteredCategories = this.categoriesToDisplay.filter(c => c.name.toLowerCase().includes(keyword.toLowerCase()))
   }
 
   deleteCategory(id : number){
-    if (confirm("Etes-vous sûrs de vouloir supprimer ce livre ?"))
+    let category = this.categoryService.getLocalCategoryById(id);
+    if (category!.products.length != 0) {
+        alert(`Veuillez déplacer les ${category!.products.length} produits de la catégorie `)
+    }  
+    else if (confirm("Etes-vous sûrs de vouloir supprimer cette catégorie ?"))
     {
       this.categoryService.deleteCategory(id);
     }

@@ -1,5 +1,4 @@
-<!-- navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
 
   <div class="collapse navbar-collapse" id="navbarNav">
@@ -20,7 +19,18 @@
     </ul>
   </div>
 </nav>
-
-
-<router-outlet></router-outlet>
-<!-- footer -->
+-->
+<div class="full-screen d-flex flex-column">
+  <!-- navbar -->
+  <nav class="nav nav-pills nav-justified my-3 mx-3 shadow p-3 bg-dark rounded text-light ">
+    <a class="nav-item nav-link" href="#">Dashboard</a>
+    <a class="nav-item nav-link" routerLink='/categories'>Categories</a>
+    <a class="nav-item nav-link" routerLink='/products'>Produits</a>
+    <a class="nav-item nav-link" routerLink='/users'>Utilisateurs</a>
+    <a class="nav-item nav-link" routerLink='/orders'>Commandes</a>
+  </nav>
+    <div class="mx-3 flex-grow-1 p-3 shadow mb-5 bg-white rounded pt-5">
+      <router-outlet ></router-outlet>
+    </div>
+  <!-- footer -->
+</div>

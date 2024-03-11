@@ -1,4 +1,5 @@
 export interface ICategoryToDisplay {
     id: number,
-    name: string
+    name: string,
+    nbOfProduct: number
 }

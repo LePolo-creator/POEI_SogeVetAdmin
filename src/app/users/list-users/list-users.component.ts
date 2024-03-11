@@ -9,27 +9,44 @@ import { Subject, Subscription } from 'rxjs';
   styleUrls: ['./list-users.component.css']
 })
 export class ListUsersComponent implements OnInit{
-  users : User[] = []
+  users : User[] = []                  // users
   userSubscription? : Subscription;
   usersToDisplay : User[] = []
   usersUpdated : User[] = []
-  filteredUsers : User[] = []
-  
+  filteredUsers? : User[];
+
   constructor(private usersService : UsersService){}
 
   filterUser(keyword: string){
-    this.filteredUsers = this.usersToDisplay.filter(u => 
+    this.filteredUsers = this.usersToDisplay.filter(u =>
       u.firstName.toLowerCase().includes(keyword.toLowerCase()) ||
       u.lastName.toLowerCase().includes(keyword.toLowerCase()) ||
       u.email.toLowerCase().includes(keyword.toLowerCase())
       )
+  }
 
+  deleteUser(id : number){
+    if (confirm("Etes-vous sûrs de vouloir supprimer cet utilisateur ?"))
+    {
+      this.usersService.deleteUser(id);
+    }
+  }
+
+  deactivateUser(id: number){
+    if (confirm("Etes-vous sûrs de vouloir désactiver ce compte ?")) {
+
+      this.usersService.deactivateUser(id);
+    }
+  }
+  reactivateUser(id: number){
+      this.usersService.reactivateUser(id);
   }
 
   ngOnInit(): void {
     this.usersService.getUsers();
     this.userSubscription  = this.usersService.usersUpdated.subscribe( users =>  {
-        this.users = users;
+        // only non admin users (clients)
+        this.users = users.filter(u => !u.isAdmin);
         this.usersToDisplay = this.users;
       })
   }

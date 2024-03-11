@@ -1,20 +1,19 @@
-<div class="container"> 
+    <!-- Pas d'intérêt à avoir un add pour users -->
+    <!-- <button type="button" class="btn btn-success" [routerLink]="['/users', 'add' ]"> Ajouter un nouvel utilisateur </button> -->
 
-    <button type="button" class="btn btn-success" [routerLink]="['/categories', 'add' ]"> Ajouter un nouvel utilisateur </button>
 
-    <form >
-        <div>
-            <label for="search"> Mot clé</label>
-            <input type="text" class="form-control" id="search" #search/> 
+    <form>
+      <div class=" d-flex justify-content-center gap-3">
+        <div >
+          <input type="text" class="form-control" id="search" (keyup)="filterUser(search.value)" #search placeholder="Mot clé"/>
         </div>
-        <div>
-            <button type="button"   class="btn btn-primary" (click)="filterUser(search.value)">Rechercher</button>
+        <div >
+          <button type="button"   class="btn btn-primary" (click)="filterUser(search.value)">Rechercher</button>
         </div>
+      </div>
     </form>
-    
-    
-    
-    <table class="table table-bordered table-hover">
+ <!--
+     <table class="table table-bordered table-hover">
     <thead class="table-dark">
         <tr>
             <th >#Id</th>
@@ -37,5 +36,56 @@
             <td><button class="btn btn-danger" (click)="deleteUser(u.id)" >Supprimer</button> </td>
         </tr>
     </tbody>
+    </table> -->
+
+
+
+    <table class="table mt-3">
+      <thead>
+        <tr>
+          <th class="text-center">#</th>
+          <th >Prénom</th>
+          <th >Nom</th>
+          <th >Email</th>
+          <th >Adresse</th>
+          <th > #Commandes </th>
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of filteredUsers?filteredUsers:usersToDisplay">
+          <td class="text-center">{{ u.id }}</td>
+          <td>{{u.firstName}}</td>
+          <td>{{u.lastName}}</td>
+          <td>{{u.email}}</td>
+          <td>{{u.address}}</td>
+          <td>{{u.orders.length}}
+
+            <button type="button" rel="tooltip"  class="btn btn-info">
+              Voir
+            </button>
+          </td>
+          <td class="td-actions text-right d-flex gap-3">
+            <button type="button" rel="tooltip" [routerLink]="['/users', 'edit', u.id]" class="btn btn-success">
+                Modifier
+              </button>
+              
+              <div *ngIf="u.isActive; else elseBlock">
+                <button type="button" rel="tooltip" (click)="deactivateUser(u.id)" class="btn btn-danger">
+                  Désactiver
+                </button>
+              </div>
+              <ng-template #elseBlock> 
+                <button type="button" rel="tooltip" (click)="reactivateUser(u.id)" class="btn btn-success">
+                  Réactiver
+                </button>
+
+              </ng-template>
+              
+              <button type="button" rel="tooltip" (click)="deleteUser(u.id)" class="btn btn-danger">
+                Supprimer
+              </button>
+          </td>
+        </tr>
+      </tbody>
     </table>
-</div>
