@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../model/user';
-import {Observable, Subject} from 'rxjs'
+import {Observable, Subject, lastValueFrom} from 'rxjs'
 
 
 @Injectable({
@@ -9,6 +9,7 @@ import {Observable, Subject} from 'rxjs'
 })
 export class UsersService {
   baseUrl="https://localhost:7265/api/users/";
+  user? : User
 
   options = {
     headers : new HttpHeaders({"content-type":"application/json"})
@@ -57,6 +58,16 @@ export class UsersService {
     )
   }
 
+  getUserFullName(id : number){
+    let fullName = "";
+    return this.getUserById(id).subscribe(user => {
+       console.log(user)
+       return user.firstName
+     } )
+  }
+
+ 
+  
   editUser(id: number,firstName: string, lastName: string, email: string, password: string, address: string ) {
     this.http.put<User>(
       this.baseUrl+id,

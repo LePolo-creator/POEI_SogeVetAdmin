@@ -1,0 +1,27 @@
+<div class="container">
+
+    <button> Retour à faire </button>
+    
+    <h3> Détails de la commande {{ order? order!.id : ""}} </h3>
+    <table class="table mt-3 table-hover">
+      <thead>
+        <tr>
+          <th class="text-center">#</th>
+          <th>ProductId</th>
+          <th>Quantité</th>
+          <th>Prix Unitaire</th>            
+          <th>Total (€)</th>            
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of orderItems">
+          <td class="text-center">{{ item.id }}</td>
+          <td>{{item.productId}}</td>
+          <td>{{item.quantity}}</td>
+          <td>{{item.unitPrice}}</td>
+          <td>{{item.totalPrice}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>

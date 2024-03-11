@@ -1,0 +1,46 @@
+<div class="container">
+
+      <!-- <form>
+        <div class="d-flex justify-content-center gap-3">
+          <div>
+            <input type="text" class="form-control" (keyup)="filterCategory(search.value)" id="search" #search placeholder="Mot clé"/>
+          </div>
+          <div>
+            <button type="button"  class="btn btn-primary" (click)="filterCategory(search.value)">Rechercher </button>
+          </div>
+        </div>
+      </form>
+   -->
+
+  
+      <table class="table mt-3 table-hover">
+        <thead>
+          <tr>
+            <th class="text-center">#</th>
+            <th>Statut</th>
+            <th>Nombre de produits</th>
+            <th>Client</th>            
+            <th>Total (€)</th>            
+            <th class="text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let o of ordersToDisplay">
+            <td class="text-center">{{ o.id }}</td>
+            <td>{{o.status}}</td>
+            <td>{{o.totalQuantity}}</td>
+            <td>{{o.user}}</td>
+            <td>{{o.totalPrice}}</td>
+            <td class="td-actions text-right d-flex gap-3">
+              <button type="button" rel="tooltip" [routerLink]="['/orders', o.id  ]" class="btn btn-success">
+                  Voir détails
+                </button>
+                <!-- <button type="button" rel="tooltip" (click)="deleteCategory(2)"  class="btn btn-danger"> -->
+                  <!-- Supprimer -->
+                <!-- </button> -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  
