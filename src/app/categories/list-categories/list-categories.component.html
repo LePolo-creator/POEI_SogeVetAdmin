@@ -21,7 +21,8 @@
           <th class="text-center">#</th>
           <th >Catégorie</th>
           <th >Nombre de produits</th>
-          <th class="text-right">Actions</th>
+          <th class="text-right">Modifier</th>
+          <th class="text-right">Supprimer</th>
         </tr>
       </thead>
       <tbody>
@@ -29,10 +30,12 @@
           <td class="text-center">{{ c.id }}</td>
           <td>{{c.name}}</td>
           <td>{{c.nbOfProduct}}</td>
-          <td class="td-actions text-right d-flex gap-3">
+          <td>
             <button type="button" rel="tooltip" [routerLink]="['/categories', 'edit', c.id]" class="btn btn-success">
-                Modifier
+              Modifier
               </button>
+            </td>
+              <td>
               <button type="button" rel="tooltip" (click)="deleteCategory(c.id)"  class="btn btn-danger">
                 Supprimer
               </button>

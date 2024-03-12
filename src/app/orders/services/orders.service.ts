@@ -24,7 +24,7 @@ export class OrdersService  {
       id: order.id,
       address : order.address,
       status : order.status,
-      user : userName ,
+      userId : order.id ,    // serait mieux d'avoir le nom
       orderItems : order.orderItems,
       totalPrice : this.getTotalPrice(order.id),
       totalQuantity: this.getTotalQuantity(order.id)
