@@ -29,16 +29,16 @@
       </thead>
       <tbody>
         <tr *ngFor="let u of filteredUsers?filteredUsers:usersToDisplay">
-          <td class="text-center">{{ u.id }}</td>
+          <th class="text-center">{{ u.id }}</th>
           <td>{{u.firstName}}</td>
           <td>{{u.lastName}}</td>
           <td>{{u.email}}</td>
           <td>{{u.address}}</td>
           <td>{{u.orders.length}}
 
-            <!-- <button type="button" rel="tooltip"  class="btn btn-info">
+            <button type="button" [routerLink]="['/users', u.id]"  class="btn btn-info">
               Voir
-            </button> -->
+            </button>
           </td>
           <td>
             <button type="button" rel="tooltip" [routerLink]="['/users', 'edit', u.id]" class="btn btn-success">

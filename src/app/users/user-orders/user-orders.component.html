@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="d-flex justify-content-between mb-3">
+
+    <button class="btn btn-primary mb-5" [routerLink]="['/orders']"> Retour aux commandes </button>
+    <button class="btn btn-primary mb-5" [routerLink]="['/users']"> Retour aux utilisateurs </button>
+  </div>
+    
+    <div class="my-3 ">
+        <h3> Commandes du User #{{ user? user.id : ""}}</h3>
+        <p>{{user? user.firstName + " " + user.lastName : ""}} </p>
+        <p>Adresse : {{ user? user.address : ""}}</p>
+    </div>
+    
+    <table class="table mt-3 table-hover">
+        <thead>
+          <tr>
+            <th class="text-center">#</th>
+            <th>Statut de la commande</th>
+            <th>Nombre de produits</th>
+            <th>Total (€)</th>            
+            <th class="text-right">Détails</th>
+            <th class="text-right">Modifier</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let o of ordersToDisplay">
+            <th class="text-center">{{ o.id }}</th>
+            <td>{{o.status}}</td>
+            <td>{{o.totalQuantity}}</td>
+            <td>{{o.totalPrice}}</td>
+            <td>
+              <button type="button" [routerLink]="['/orders', o.id  ]" class="btn btn-success">
+                  Voir détails
+              </button>
+            </td>
+            <td>
+              <button type="button" [routerLink]="['/orders', 'edit', o.id  ]" class="btn btn-success">
+                  Modifier
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+</div>

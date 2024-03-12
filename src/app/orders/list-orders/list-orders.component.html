@@ -47,7 +47,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let o of filteredOrders? filteredOrders : ordersToDisplay">
-            <td class="text-center">{{ o.id }}</td>
+            <th class="text-center">{{ o.id }}</th>
             <td>{{o.userId}}</td>
             <td>{{o.status}}</td>
             <td>{{o.totalQuantity}}</td>
