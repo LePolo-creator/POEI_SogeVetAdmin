@@ -4,6 +4,7 @@ import { Order } from '../model/order';
 import { Subscription } from 'rxjs';
 import { IOrderToDisplay } from '../model/iorder-to-display';
 import { UsersService } from 'src/app/users/services/users.service';
+import { OrderItems } from '../model/order-items';
 
 @Component({
   selector: 'app-list-orders',
@@ -14,6 +15,7 @@ export class ListOrdersComponent implements OnInit{
 
   constructor( private orderService : OrdersService, private userService : UsersService){}
   orders : Order[] = []
+  orderItems? : OrderItems[] 
   filteredOrders? : IOrderToDisplay[]
   ordersToDisplay : IOrderToDisplay[] = []
   orderSubscription? : Subscription

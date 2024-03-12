@@ -4,7 +4,7 @@ export interface IOrderToDisplay {
     id : number,
     status: string,
     address: string,
-    user : string,
+    userId : number,
     orderItems : Array<OrderItems>,
     totalPrice: number,
     totalQuantity: number

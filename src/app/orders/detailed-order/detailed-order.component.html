@@ -1,13 +1,15 @@
 <div class="container">
-
-    <button> Retour à faire </button>
+    <div class="d-flex justify-content-between mb-3">
+      <button class="btn btn-primary mb-5" [routerLink]="['/orders']"> Retour </button>
+      <button class="btn btn-primary mb-5" [routerLink]="['/users', order!.userId]"> Toutes les commandes de cet utilisateur </button>
+    </div>
     
     <h3> Détails de la commande {{ order? order!.id : ""}} </h3>
     <table class="table mt-3 table-hover">
       <thead>
         <tr>
           <th class="text-center">#</th>
-          <th>ProductId</th>
+          <th>#Id Produit</th>
           <th>Quantité</th>
           <th>Prix Unitaire</th>            
           <th>Total (€)</th>            
@@ -15,15 +17,17 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of orderItems">
-          <td class="text-center">{{ item.id }}</td>
+          <th class="text-center">{{ item.id }}</th>
           <td>{{item.productId}}</td>
           <td>{{item.quantity}}</td>
           <td>{{item.unitPrice}}</td>
-          <td>{{item.totalPrice}}</td>
+          <td>{{item.totalPrice.toFixed(2)}}</td>
+        </tr>
+        <tr>
+          <th colspan="4">Total de la commande</th>
+          <th>{{totalPrice? totalPrice.toFixed(2) : ""}}</th>
         </tr>
       </tbody>
     </table>
 
-
-    <p>Total de la commande : {{totalPrice}}</p>
 </div>

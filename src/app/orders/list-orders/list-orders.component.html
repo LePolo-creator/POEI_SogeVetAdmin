@@ -37,20 +37,20 @@
         <thead>
           <tr>
             <th class="text-center">#</th>
-            <th>Statut</th>
+            <th># Id client</th>            
+            <th>Statut de la commande</th>
             <th>Nombre de produits</th>
-            <th>Client</th>            
             <th>Total (€)</th>            
             <th class="text-right">Détails</th>
-            <th class="text-right">Modifier statut</th>
+            <th class="text-right">Modifier</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let o of filteredOrders? filteredOrders : ordersToDisplay">
-            <td class="text-center">{{ o.id }}</td>
+            <th class="text-center">{{ o.id }}</th>
+            <td>{{o.userId}}</td>
             <td>{{o.status}}</td>
             <td>{{o.totalQuantity}}</td>
-            <td>{{o.user}}</td>
             <td>{{o.totalPrice}}</td>
             <td>
               <button type="button" [routerLink]="['/orders', o.id  ]" class="btn btn-success">
