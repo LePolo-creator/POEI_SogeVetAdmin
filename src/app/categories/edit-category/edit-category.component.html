@@ -1,5 +1,8 @@
 <div class="container">
-  <h3>Modifier la catégorie #{{ category!.id }}</h3>
+
+  <button class="btn btn-primary mb-5" [routerLink]="['/categories']"> Retour </button>
+
+  <h3>Modifier la catégorie #{{ category? category!.id : "" }}</h3>
 
   <form (ngSubmit)="editCategory(f)" #f="ngForm">
     <div class="form-group">

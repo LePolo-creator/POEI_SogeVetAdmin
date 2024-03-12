@@ -1,0 +1,30 @@
+<div class="container">
+  <button class="btn btn-primary mb-5" [routerLink]="['/orders']"> Retour </button>
+
+    <h3>Modifier le statut de la commande #{{ order?order!.id:"" }}</h3>
+  
+    <form (ngSubmit)="editOrder(f)" #f="ngForm">
+      <div class="form-group">
+        <label for="status">Statut</label>
+        <select type="text" class="form-control" id="status" name="status" 
+        ngModel required #name="ngModel" [ngModel]="order==undefined?'':order.status"  >
+            <option value="En attente de traitement">En attente de traitement</option>
+            <option value="En attente de Livraison">En attente de Livraison</option>
+            <option value="En cours de livraison">En cours de livraison</option>
+            <option value="Livrée">Livrée</option>
+            <option value="Annulée">Annulée</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="address">Nom de la categorie</label>
+        <input type="text" class="form-control" id="address" name="address" ngModel 
+        required #address="ngModel" [ngModel]="order==undefined?'':order.address"   />
+      </div>
+  
+      <div class="form-group row justify-content-center">
+        <button type="submit"   class="btn btn-primary col-3 mt-3" [disabled]="f.invalid">Modifier</button>
+      </div>
+    </form>
+  </div>
+  

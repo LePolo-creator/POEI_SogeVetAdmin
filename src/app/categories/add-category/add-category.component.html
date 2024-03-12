@@ -1,5 +1,7 @@
 
 <div class="container">
+  <button class="btn btn-primary mb-5" [routerLink]="['/categories']"> Retour </button>
+
   <h3>Nouvelle catégorie</h3>
 
   <form (ngSubmit)="addCategory(f)" #f="ngForm">

@@ -1,5 +1,8 @@
 
 <div class = "container">
+
+    <button class="btn btn-primary mb-5" [routerLink]="['/products']"> Retour </button>
+
     <form (ngSubmit)="editProduct(f)" #f="ngForm">
     <div class="form-group">
         <label for="name">Nom du produit</label>

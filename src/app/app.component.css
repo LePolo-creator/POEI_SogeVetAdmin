@@ -3,9 +3,10 @@ a {
   color: inherit;
 }
 
-.nav-link:hover,.nav-link:active{
+
+.nav-link:hover, .nav-link:active, .active {
   color: white ;
-  background-color: gray ;
+  background-color: gray !important ;
   border-radius: 8px ;
   font-weight:bold;
 }
