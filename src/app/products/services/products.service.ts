@@ -14,7 +14,12 @@ export class ProductsService {
   baseUrl = "https://localhost:7265/api/products/";
 
   options = {
-    headers : new HttpHeaders({"content-type":"application/json"})
+    headers : new HttpHeaders(
+      {
+      "content-type":"application/json",
+      "authorization" : "Bearer" + localStorage.getItem("token") || ""
+      }
+    )
   }
 
 

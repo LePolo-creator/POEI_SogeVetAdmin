@@ -3,12 +3,14 @@ a {
   color: inherit;
 }
 
-.nav-link:hover, .nav-link:active {
+.nav-link:hover,.nav-link:active{
   color: white ;
   background-color: gray ;
   border-radius: 8px ;
   font-weight:bold;
 }
+
+
 
 .full-screen {
   height:100vh;

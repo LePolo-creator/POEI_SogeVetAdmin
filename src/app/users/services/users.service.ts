@@ -11,7 +11,12 @@ export class UsersService {
   baseUrl="https://localhost:7265/api/users/";
 
   options = {
-    headers : new HttpHeaders({"content-type":"application/json"})
+    headers : new HttpHeaders(
+      {
+      "content-type":"application/json",
+      "authorization" : "Bearer" + localStorage.getItem("token") || ""
+      }
+    )
   }
   private users : User[] = []
   usersUpdated = new Subject<User[]>
