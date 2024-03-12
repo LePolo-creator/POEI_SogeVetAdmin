@@ -12,7 +12,12 @@ export class UsersService {
   user? : User
 
   options = {
-    headers : new HttpHeaders({"content-type":"application/json"})
+    headers : new HttpHeaders(
+      {
+      "content-type":"application/json",
+      "authorization" : "Bearer" + localStorage.getItem("token") || ""
+      }
+    )
   }
   private users : User[] = []
   usersUpdated = new Subject<User[]>

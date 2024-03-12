@@ -1,0 +1,13 @@
+<h2>Page d'authentification</h2>
+<form>
+    <div class="mb-3" >
+      <label for="username" class="form-label">Nom d'utilisateur</label>
+      <input type="text" class="form-control" id="username" #username>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Mot de passe</label>
+      <input type="password" class="form-control" id="password" #password>
+    </div>
+    
+    <button type="button" class="btn btn-primary" (click)="login(username.value, password.value)">Se connecter</button>
+  </form>

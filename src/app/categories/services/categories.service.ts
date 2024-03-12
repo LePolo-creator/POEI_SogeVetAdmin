@@ -14,6 +14,16 @@ export class CategoriesService {
 
   baseUrl="https://localhost:7265/api/categories/";
 
+  options = {
+    headers : new HttpHeaders(
+      {
+      "content-type":"application/json",
+      "authorization" : "Bearer" + localStorage.getItem("token") || ""
+      }
+    )
+  }
+
+
   constructor( private http: HttpClient) { }
 
 
@@ -46,12 +56,10 @@ export class CategoriesService {
   }
 
   addCategory(name: string){
-    const options = {
-      headers : new HttpHeaders({"content-type":"application/json"})
-    }
+    
     this.http.post<Category>(this.baseUrl, JSON.stringify({
       Name: name
-    }), options).subscribe(category => {
+    }), this.options).subscribe(category => {
       this.categories.push(category)
       this.categoriesUpdated.next([...this.categories])
     })
@@ -64,13 +72,11 @@ export class CategoriesService {
 
 
   editCategory(id: number, name: string){
-    const options = {
-      headers : new HttpHeaders({"content-type":"application/json"})
-    }
+    
     this.http.put<Category>(this.baseUrl+id, JSON.stringify({
       Id : id,
       Name: name
-    }), options).subscribe(category => {
+    }), this.options).subscribe(category => {
       this.categories = this.categories.map(c => c.id === category.id ? category : c)
     })
   }
