@@ -15,27 +15,6 @@
     <button type="button" class="btn btn-success" [routerLink]="['/categories', 'add' ]"> Ajouter une nouvelle categorie </button>
   </div>
 
-    <!-- <table class="table table-bordered table-hover">
-      <thead class="table-dark">
-        <tr>
-            <th >#Id</th>
-            <th >Name</th>
-            <th >Nb de produits</th>
-            <th >Modifier</th>
-            <th >Supprimer</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let c of filteredCategories?filteredCategories:categoriesToDisplay">
-            <th >{{ c.id }}</th>
-            <td>{{c.name}}</td>
-            <td>0</td>
-            <td><button class="btn btn-success" [routerLink]="['/categories', 'edit', c.id]">Modifier</button> </td>
-            <td><button class="btn btn-danger" (click)="deleteCategory(c.id)" >Supprimer</button> </td>
-        </tr>
-      </tbody>
-    </table> -->
-
     <table class="table mt-3 table-hover">
       <thead>
         <tr>
@@ -49,7 +28,7 @@
         <tr *ngFor="let c of filteredCategories?filteredCategories:categoriesToDisplay">
           <td class="text-center">{{ c.id }}</td>
           <td>{{c.name}}</td>
-          <td>0</td>
+          <td>{{c.nbOfProduct}}</td>
           <td class="td-actions text-right d-flex gap-3">
             <button type="button" rel="tooltip" [routerLink]="['/categories', 'edit', c.id]" class="btn btn-success">
                 Modifier

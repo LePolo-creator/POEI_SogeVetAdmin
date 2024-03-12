@@ -36,13 +36,6 @@ export class ListCategoriesComponent implements OnInit {
   }
 
 
-
-
-
-
-
-
-
   
   ngOnInit(): void {
      this.categoryService.getCategories();
