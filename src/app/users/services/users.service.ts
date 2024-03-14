@@ -15,7 +15,7 @@ export class UsersService {
     headers : new HttpHeaders(
       {
       "content-type":"application/json",
-      "authorization" : "Bearer" + localStorage.getItem("token") || ""
+      "authorization" : "Bearer " + JSON.parse(localStorage.getItem("authSogevet")!).token || ""
       }
     )
   }
@@ -25,7 +25,8 @@ export class UsersService {
   constructor( private http : HttpClient) { }
 
   getUsers(){
-    this.http.get<User[]>(this.baseUrl).subscribe(users =>{
+    console.log(this.options)
+    this.http.get<User[]>(this.baseUrl, this.options).subscribe(users =>{
       this.users = users;
       console.log(this.users)
       this.usersUpdated.next([...this.users])
@@ -37,7 +38,7 @@ export class UsersService {
   }
 
   getUserById(id:number) : Observable<User> {
-    return this.http.get<User>(this.baseUrl+id)
+    return this.http.get<User>(this.baseUrl+id, this.options)
   }
 
 
@@ -56,7 +57,7 @@ export class UsersService {
 
 
   deleteUser(id:number){
-    this.http.delete(this.baseUrl+id).subscribe(() => {
+    this.http.delete( this.baseUrl+id, this.options).subscribe(() => {
       this.users = this.users.filter(u => u.id != id),
       this.usersUpdated.next([...this.users])
     }

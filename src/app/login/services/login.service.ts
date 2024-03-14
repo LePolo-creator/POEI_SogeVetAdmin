@@ -49,13 +49,16 @@ export class LoginService {
 
 
   isAuthenticated() : boolean{
-    if (localStorage.getItem("authSogevet")==undefined) {
-      return false;
+    if (localStorage.getItem("authSogevet") == null) {
+      return false; 
+      
     }
     var tokenAuth = JSON.parse(localStorage.getItem("authSogevet")!).token
-    if( tokenAuth == undefined 
-    )
+    if( tokenAuth == undefined  ){
       return false;
+
+    }
+
     //Il recommandé d'ajouter une requête vers le serveur afin de vérifier la validité du token
     return true;
   }

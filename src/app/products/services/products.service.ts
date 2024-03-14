@@ -17,7 +17,7 @@ export class ProductsService {
     headers : new HttpHeaders(
       {
       "content-type":"application/json",
-      "authorization" : "Bearer" + localStorage.getItem("token") || ""
+      "authorization" : "Bearer " + JSON.parse(localStorage.getItem("authSogevet")!).token || ""
       }
     )
   }
@@ -26,30 +26,30 @@ export class ProductsService {
   constructor(private http : HttpClient) { }
 
   getProducts(){
-    this.http.get<Product[]>(this.baseUrl).subscribe(
+    this.http.get<Product[]>(this.baseUrl, this.options).subscribe(
       products => {
         this.products = products;
-        console.log(this.products);
+        //console.log(this.products);
         this.productsUpdated.next([...this.products]);
       }
     )
   }
 
   getProductById(id : number) : Observable<Product>{
-    return this.http.get<Product>(this.baseUrl+id);
+    return this.http.get<Product>(this.baseUrl+id, this.options);
   }
 
   addProduct(name: string,description : string,size : number, unitPrice : number,color : string, quantity : number,categoryName : string, images : string[]){
-    console.log(JSON.stringify({
-      Name: name,
-      Description : description,
-      Size : size,
-      UnitPrice : unitPrice,
-      Color : color,
-      Quantity : quantity,
-      CategoryName : categoryName,
-      Images : images
-    }))
+    // console.log(JSON.stringify({
+    //   Name: name,
+    //   Description : description,
+    //   Size : size,
+    //   UnitPrice : unitPrice,
+    //   Color : color,
+    //   Quantity : quantity,
+    //   CategoryName : categoryName,
+    //   Images : images
+    // }))
     this.http.post<Product>(this.baseUrl, JSON.stringify({
       Name: name,
       Description : description,
@@ -66,7 +66,7 @@ export class ProductsService {
   }
 
   deleteProduct(id: number) { 
-    this.http.delete(this.baseUrl+id).subscribe(()=>{
+    this.http.delete(this.baseUrl+id, this.options).subscribe(()=>{
       this.products = this.products.filter(p=>p.id != id);
 
       

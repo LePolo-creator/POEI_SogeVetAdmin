@@ -18,7 +18,7 @@ export class CategoriesService {
     headers : new HttpHeaders(
       {
       "content-type":"application/json",
-      "authorization" : "Bearer" + localStorage.getItem("token") || ""
+      "authorization" : "Bearer " + JSON.parse(localStorage.getItem("authSogevet")!).token || ""
       }
     )
   }
@@ -38,7 +38,7 @@ export class CategoriesService {
   }
 
   getCategories(){
-    this.http.get<Category[]>(this.baseUrl).subscribe(
+    this.http.get<Category[]>(this.baseUrl, this.options).subscribe(
       categories => {
         this.categories = categories;
         // console.log(this.categories);
@@ -48,7 +48,7 @@ export class CategoriesService {
   }
 
   getCategoryById(id : number) : Observable<Category>{
-    return this.http.get<Category>(this.baseUrl+id);
+    return this.http.get<Category>(this.baseUrl+id, this.options);
   }
 
   getLocalCategoryById(id: number) {
@@ -67,7 +67,7 @@ export class CategoriesService {
 
 
   deleteCategory(id: number) { 
-    this.http.delete(this.baseUrl+id).subscribe( () => this.getCategories())
+    this.http.delete(this.baseUrl+id, this.options).subscribe( () => this.getCategories())
   }
 
 
