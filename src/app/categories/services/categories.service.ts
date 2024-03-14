@@ -13,15 +13,8 @@ export class CategoriesService {
   categoriesUpdated = new Subject<Category[]>()     // Canal pour récupérer les modifications
 
   baseUrl="https://localhost:7265/api/categories/";
-
-  options = {
-    headers : new HttpHeaders(
-      {
-      "content-type":"application/json",
-      "authorization" : "Bearer " + JSON.parse(localStorage.getItem("authSogevet")!).token || ""
-      }
-    )
-  }
+  
+  
 
 
   constructor( private http: HttpClient) { }
@@ -38,7 +31,15 @@ export class CategoriesService {
   }
 
   getCategories(){
-    this.http.get<Category[]>(this.baseUrl, this.options).subscribe(
+    const options = {
+      headers : new HttpHeaders(
+        {
+        "content-type":"application/json",
+        "authorization" : "Bearer " + JSON.parse(localStorage.getItem("authSogevet")!).token || ""
+        }
+      )
+    }
+    this.http.get<Category[]>(this.baseUrl, options).subscribe(
       categories => {
         this.categories = categories;
         // console.log(this.categories);
@@ -48,7 +49,15 @@ export class CategoriesService {
   }
 
   getCategoryById(id : number) : Observable<Category>{
-    return this.http.get<Category>(this.baseUrl+id, this.options);
+    const options = {
+      headers : new HttpHeaders(
+        {
+        "content-type":"application/json",
+        "authorization" : "Bearer " + JSON.parse(localStorage.getItem("authSogevet")!).token || ""
+        }
+      )
+    }
+    return this.http.get<Category>(this.baseUrl+id, options);
   }
 
   getLocalCategoryById(id: number) {
@@ -56,10 +65,17 @@ export class CategoriesService {
   }
 
   addCategory(name: string){
-    
+    const options = {
+      headers : new HttpHeaders(
+        {
+        "content-type":"application/json",
+        "authorization" : "Bearer " + JSON.parse(localStorage.getItem("authSogevet")!).token || ""
+        }
+      )
+    }
     this.http.post<Category>(this.baseUrl, JSON.stringify({
       Name: name
-    }), this.options).subscribe(category => {
+    }), options).subscribe(category => {
       this.categories.push(category)
       this.categoriesUpdated.next([...this.categories])
     })
@@ -67,16 +83,31 @@ export class CategoriesService {
 
 
   deleteCategory(id: number) { 
-    this.http.delete(this.baseUrl+id, this.options).subscribe( () => this.getCategories())
+    const options = {
+      headers : new HttpHeaders(
+        {
+        "content-type":"application/json",
+        "authorization" : "Bearer " + JSON.parse(localStorage.getItem("authSogevet")!).token || ""
+        }
+      )
+    }
+    this.http.delete(this.baseUrl+id, options).subscribe( () => this.getCategories())
   }
 
 
   editCategory(id: number, name: string){
-    
+    const options = {
+      headers : new HttpHeaders(
+        {
+        "content-type":"application/json",
+        "authorization" : "Bearer " + JSON.parse(localStorage.getItem("authSogevet")!).token || ""
+        }
+      )
+    }
     this.http.put<Category>(this.baseUrl+id, JSON.stringify({
       Id : id,
       Name: name
-    }), this.options).subscribe(category => {
+    }), options).subscribe(category => {
       this.categories = this.categories.map(c => c.id === category.id ? category : c)
     })
   }
