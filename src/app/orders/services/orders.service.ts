@@ -14,14 +14,7 @@ export class OrdersService  {
   ordersUpdated = new Subject<Order[]>()     
 
   baseUrl="https://localhost:7265/api/orders/";
-  options = {
-    headers : new HttpHeaders(
-      {
-      "content-type":"application/json",
-      "authorization" : "Bearer " + JSON.parse(localStorage.getItem("authSogevet")!).token || ""
-      }
-    )
-  }
+  
 
   constructor(private http: HttpClient, private userService : UsersService) { }
 
@@ -60,7 +53,15 @@ export class OrdersService  {
 
 
   getOrders(){
-    this.http.get<Order[]>(this.baseUrl, this.options).subscribe(
+    const options = {
+      headers : new HttpHeaders(
+        {
+        "content-type":"application/json",
+        "authorization" : "Bearer " + JSON.parse(localStorage.getItem("authSogevet")!).token || ""
+        }
+      )
+    }
+    this.http.get<Order[]>(this.baseUrl, options).subscribe(
       orders => {
         this.orders = orders;
         this.ordersUpdated.next([...this.orders]);
@@ -70,16 +71,31 @@ export class OrdersService  {
 
 
   getOrderById(id: number){
-    return this.http.get<Order>(this.baseUrl+id, this.options)
+    const options = {
+      headers : new HttpHeaders(
+        {
+        "content-type":"application/json",
+        "authorization" : "Bearer " + JSON.parse(localStorage.getItem("authSogevet")!).token || ""
+        }
+      )
+    }
+    return this.http.get<Order>(this.baseUrl+id, options)
   }
 
   editOrder(id: number, status: string, address: string){
-
+    const options = {
+      headers : new HttpHeaders(
+        {
+        "content-type":"application/json",
+        "authorization" : "Bearer " + JSON.parse(localStorage.getItem("authSogevet")!).token || ""
+        }
+      )
+    }
     this.http.put<Order>(this.baseUrl+id, JSON.stringify({
       Id : id,
       status: status,
       address : address
-    }), this.options).subscribe(order => {
+    }), options).subscribe(order => {
       this.orders = this.orders.map(o => o.id === order.id ? order : o)
     })
   }
