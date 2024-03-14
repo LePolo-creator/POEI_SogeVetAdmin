@@ -7,14 +7,7 @@ import { Router } from '@angular/router';
 })
 export class LoginService {
   baseUrl = "https://localhost:7265/api/login";
-  options = {
-    headers : new HttpHeaders(
-      {
-      "content-type":"application/json",
-      "authorization" : "Bearer" + localStorage.getItem("token") || ""
-      }
-    )
-  }
+  
 
   constructor(private http : HttpClient, private router : Router
     ) { }
@@ -24,17 +17,26 @@ export class LoginService {
       UserName : username,
       Password : password
     })
+
+
+    const options = {
+      headers : new HttpHeaders(
+        {
+        "content-type":"application/json"
+        }
+      )
+    }
     
     console.log(body);
-    this.http.post(this.baseUrl, body, this.options).subscribe(
+    this.http.post<any>(this.baseUrl, body, options).subscribe(
       {
         next : (response : any) => {
-          //console.log(response);
+          // console.log(response);
           //Récupérer le token renvoyé par l'API serveur
-          const authToken = (<any>response).token;
+          const authToken = (<any>response);
 
           //Enregistrer le token dans localstorage
-          localStorage.setItem("token", authToken);
+          localStorage.setItem("authSogevet", JSON.stringify(authToken));
 
           //une fois que l'utilisateur est connecté, je le redirige vers la liste des produits
           this.router.navigate(["/products"]);
@@ -47,8 +49,11 @@ export class LoginService {
 
 
   isAuthenticated() : boolean{
-    var token = localStorage.getItem("token")
-    if( token == undefined 
+    if (localStorage.getItem("authSogevet")==undefined) {
+      return false;
+    }
+    var tokenAuth = JSON.parse(localStorage.getItem("authSogevet")!).token
+    if( tokenAuth == undefined 
     )
       return false;
     //Il recommandé d'ajouter une requête vers le serveur afin de vérifier la validité du token
