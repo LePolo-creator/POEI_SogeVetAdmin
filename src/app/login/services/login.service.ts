@@ -47,6 +47,10 @@ export class LoginService {
     )
   }
 
+  logout() {
+    localStorage.removeItem("authSogevet");
+    this.router.navigate(["/"]);
+  }
 
   isAuthenticated() : boolean{
     if (localStorage.getItem("authSogevet") == null) {
