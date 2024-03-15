@@ -20,7 +20,7 @@ export class ListOrdersComponent implements OnInit{
   ordersToDisplay : IOrderToDisplay[] = []
   orderSubscription? : Subscription
 
-  filterOrders(status?:string, keyword? : string,  min?: number, max? : number ){
+  filterOrders(status?:string, min?: number, max? : number ){
     this.filteredOrders = this.ordersToDisplay
     if (status) {
       this.filteredOrders = this.filteredOrders.filter(o => o.status == status)
