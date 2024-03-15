@@ -11,22 +11,24 @@ export class UsersService {
   baseUrl="https://localhost:7265/api/users/";
   user? : User
 
-  options = {
-    headers : new HttpHeaders(
-      {
-      "content-type":"application/json",
-      "authorization" : "Bearer " + JSON.parse(localStorage.getItem("authSogevet")!).token || ""
-      }
-    )
-  }
+  
   private users : User[] = []
   usersUpdated = new Subject<User[]>
 
   constructor( private http : HttpClient) { }
 
   getUsers(){
-    console.log(this.options)
-    this.http.get<User[]>(this.baseUrl, this.options).subscribe(users =>{
+    
+    const options = {
+      headers : new HttpHeaders(
+        {
+        "content-type":"application/json",
+        "authorization" : "Bearer " + JSON.parse(localStorage.getItem("authSogevet")!).token || ""
+        }
+      )
+    }
+    console.log(options)
+    this.http.get<User[]>(this.baseUrl, options).subscribe(users =>{
       this.users = users;
       console.log(this.users)
       this.usersUpdated.next([...this.users])
@@ -38,16 +40,32 @@ export class UsersService {
   }
 
   getUserById(id:number) : Observable<User> {
-    return this.http.get<User>(this.baseUrl+id, this.options)
+    const options = {
+      headers : new HttpHeaders(
+        {
+        "content-type":"application/json",
+        "authorization" : "Bearer " + JSON.parse(localStorage.getItem("authSogevet")!).token || ""
+        }
+      )
+    }
+    return this.http.get<User>(this.baseUrl+id, options)
   }
 
 
   // on ne peut pas créer un admin via le addUser => pas de isAdmin car par défaut false.
   addUser(firstName: string, lastName: string, email: string, password: string, address: string){
+    const options = {
+      headers : new HttpHeaders(
+        {
+        "content-type":"application/json",
+        "authorization" : "Bearer " + JSON.parse(localStorage.getItem("authSogevet")!).token || ""
+        }
+      )
+    }
     this.http.post<User>(
       this.baseUrl,
       JSON.stringify({firstName: firstName, lastName: lastName, email: email, password: password, address: address}),
-      this.options
+      options
       ).subscribe(newUser => {
         this.users.push(newUser);
         this.usersUpdated.next([...this.users])
@@ -57,7 +75,15 @@ export class UsersService {
 
 
   deleteUser(id:number){
-    this.http.delete( this.baseUrl+id, this.options).subscribe(() => {
+    const options = {
+      headers : new HttpHeaders(
+        {
+        "content-type":"application/json",
+        "authorization" : "Bearer " + JSON.parse(localStorage.getItem("authSogevet")!).token || ""
+        }
+      )
+    }
+    this.http.delete( this.baseUrl+id, options).subscribe(() => {
       this.users = this.users.filter(u => u.id != id),
       this.usersUpdated.next([...this.users])
     }
@@ -76,10 +102,18 @@ export class UsersService {
  
   
   editUser(id: number,firstName: string, lastName: string, email: string, password: string, address: string ) {
+    const options = {
+      headers : new HttpHeaders(
+        {
+        "content-type":"application/json",
+        "authorization" : "Bearer " + JSON.parse(localStorage.getItem("authSogevet")!).token || ""
+        }
+      )
+    }
     this.http.put<User>(
       this.baseUrl+id,
       JSON.stringify({firstName: firstName, lastName: lastName, email: email, password: password, address: address}),
-      this.options
+      options
       ).subscribe(user => {
         this.users = this.users.map(u => u.id == user.id ? user : u)
       })
