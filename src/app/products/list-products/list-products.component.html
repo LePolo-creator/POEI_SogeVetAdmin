@@ -43,7 +43,7 @@
             <td>{{c.color}}</td>
             <td>{{c.quantity}}</td>
             <td>{{c.categoryName}}</td>
-            <td>{{c.images}}</td>
+            <td>{{c.images.length}}</td>
             <td><button class="btn btn-success" [routerLink]="['/products', 'edit', c.id]">Modifier</button> </td>
             <td><button class="btn btn-danger" (click)="deleteProduct(c.id)" >Supprimer</button> </td>
         </tr>
